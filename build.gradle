@@ -40,6 +40,9 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
+	implementation 'io.jsonwebtoken:jjwt:0.9.1'
+	implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.1'	// 토큰발급시 error
+
 }
 
 tasks.named('test') {
