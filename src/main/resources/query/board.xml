@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yunrap.content.board.dao.BoardDao">
+
+    <!-- 게시글 목록 조회 -->
+    <select id="getBoardList" resultType="com.yunrap.content.board.vo.BoardVo">
+
+         SELECT BOARD_SEQ
+              , BOARD_RE_REF
+              , BOARD_RE_LEV
+              , BOARD_RE_SEQ
+              , BOARD_WRITER
+              , BOARD_SUBJECT
+              , BOARD_CONTENT
+              , BOARD_HITS
+              , DEL_YN
+              , INS_USER_ID
+              , CAST( DATE_FORMAT( INS_DATE, '%Y-%m-%d %H:%i:%s' ) AS CHAR(19) ) AS INS_DATE
+              , UPD_USER_ID
+              , CAST( DATE_FORMAT( UPD_DATE, '%Y-%m-%d %H:%i:%s' ) AS CHAR(19) ) AS UPD_DATE
+         FROM TB_BOARD
+         ORDER BY BOARD_RE_REF DESC, BOARD_RE_SEQ ASC
+
+    </select>
+
+     <!-- 게시글 상세 조회  -->
+     <select id="getBoardDetail" parameterType="int" resultType="com.yunrap.content.board.vo.BoardVo">
+          SELECT BOARD_SEQ
+               , BOARD_RE_REF
+               , BOARD_RE_LEV
+               , BOARD_RE_SEQ
+               , BOARD_WRITER
+               , BOARD_SUBJECT
+               , BOARD_CONTENT
+               , BOARD_HITS
+               , DEL_YN
+               , INS_USER_ID
+               , CAST( DATE_FORMAT( INS_DATE, '%Y-%m-%d %H:%i:%s' ) AS CHAR(19) ) AS INS_DATE
+               , UPD_USER_ID
+               , CAST( DATE_FORMAT( UPD_DATE, '%Y-%m-%d %H:%i:%s' ) AS CHAR(19) ) AS UPD_DATE
+          FROM TB_BOARD
+          WHERE BOARD_SEQ = #{boardSeq}
+     </select>
+
+     <!-- 게시글 등록  -->
+     <insert id="insertBoard" parameterType="com.yunrap.content.board.vo.BoardVo">
+          INSERT INTO TB_BOARD
+          (
+               BOARD_RE_REF
+               , BOARD_RE_LEV
+               , BOARD_RE_SEQ
+               , BOARD_WRITER
+               , BOARD_SUBJECT
+               , BOARD_CONTENT
+               , INS_USER_ID
+               , INS_DATE
+               , UPD_USER_ID
+               , UPD_DATE
+          )
+          VALUES
+               (
+                 0
+               , 0
+               , 0
+               , #{boardWriter}
+               , #{boardSubject}
+               , #{boardContent}
+               , 'TEST'
+               , NOW()
+               , 'TEST'
+               , NOW()
+               )
+
+     </insert>
+
+
+</mapper>
